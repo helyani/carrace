@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Race - 汽车跑酷游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="start-screen-full">
+        <div class="start-content">
+            <h1>🏎️ Car Race</h1>
+            <h2>汽车跑酷游戏</h2>
+            
+            <div class="rules-section">
+                <h3>📜 游戏规则</h3>
+                <div class="rule-item">
+                    <span class="rule-icon">🎯</span>
+                    <span class="rule-text">控制跑车躲避各种障碍物，坚持越久分数越高</span>
+                </div>
+                <div class="rule-item">
+                    <span class="rule-icon">⏱️</span>
+                    <span class="rule-text">每60秒进入下一关卡，共10关，难度逐渐增加</span>
+                </div>
+                <div class="rule-item">
+                    <span class="rule-icon">❤️</span>
+                    <span class="rule-text">初始3条生命，碰撞障碍物损失1条生命</span>
+                </div>
+                <div class="rule-item">
+                    <span class="rule-icon">🏆</span>
+                    <span class="rule-text">成功躲过障碍物获得分数，挑战最高记录！</span>
+                </div>
+            </div>
+            
+            <div class="level-section">
+                <h3>📊 选择起始关卡</h3>
+                <div class="level-grid">
+                    <div class="level-item easy selectable" data-level="1">
+                        <div class="level-title">第1-3关</div>
+                        <div class="level-desc">简单</div>
+                        <div class="level-hint-detail">适合新手热身</div>
+                    </div>
+                    <div class="level-item medium selectable" data-level="4">
+                        <div class="level-title">第4-6关</div>
+                        <div class="level-desc">中等</div>
+                        <div class="level-hint-detail">有一定挑战</div>
+                    </div>
+                    <div class="level-item hard selectable" data-level="7">
+                        <div class="level-title">第7-9关</div>
+                        <div class="level-desc">困难</div>
+                        <div class="level-hint-detail">高手专区</div>
+                    </div>
+                    <div class="level-item extreme selectable" data-level="10">
+                        <div class="level-title">第10关</div>
+                        <div class="level-desc">极限</div>
+                        <div class="level-hint-detail">终极挑战</div>
+                    </div>
+                </div>
+                <p class="selected-level-hint">当前选择: <span id="selected-level-text">第1关</span></p>
+            </div>
+            
+            <div class="controls-section">
+                <h3>🎮 操作说明</h3>
+                <div class="controls-grid">
+                    <div class="control-item">
+                        <span class="key">⬅️</span>
+                        <span>向左移动</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">➡️</span>
+                        <span>向右移动</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">⬆️</span>
+                        <span>加速</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">⬇️</span>
+                        <span>减速</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="start-btn">🚀 开始游戏</button>
+        </div>
+    </div>
+    
+    <div id="game-container" class="hidden">
+        <div id="game-info">
+            <div id="level">关卡: <span id="level-value">1</span>/10</div>
+            <div id="timer">时间: <span id="timer-value">60</span>s</div>
+            <div id="score">分数: <span id="score-value">0</span></div>
+            <div id="speed">速度: <span id="speed-value">1.0</span>x</div>
+            <div id="lives">生命: <span id="lives-value">❤️❤️❤️</span></div>
+            <div id="mute-btn" title="静音/取消静音">🔊</div>
+        </div>
+        <canvas id="gameCanvas" width="500" height="700"></canvas>
+        
+        <div id="touch-controls">
+            <div class="touch-row">
+                <div class="touch-btn" id="touch-up">⬆️<br>加速</div>
+            </div>
+            <div class="touch-row">
+                <div class="touch-btn" id="touch-left">⬅️<br>左移</div>
+                <div class="touch-btn touch-spacer"></div>
+                <div class="touch-btn" id="touch-right">➡️<br>右移</div>
+            </div>
+            <div class="touch-row">
+                <div class="touch-btn" id="touch-down">⬇️<br>减速</div>
+            </div>
+        </div>
+        
+        <div id="level-up-screen" class="overlay hidden">
+            <h1>🎉 关卡提升!</h1>
+            <p>进入第 <span id="new-level">2</span> 关</p>
+            <p class="level-hint" id="level-hint">难度增加！</p>
+        </div>
+        
+        <div id="game-over-screen" class="overlay hidden">
+            <h1>💥 游戏结束!</h1>
+            <p>到达关卡: <span id="final-level">1</span></p>
+            <p>最终分数: <span id="final-score">0</span></p>
+            <button id="restart-btn">🔄 重新开始</button>
+        </div>
+        
+        <div id="victory-screen" class="overlay hidden">
+            <h1>🏆 恭喜通关!</h1>
+            <p>你成功完成了全部10关!</p>
+            <p>最终分数: <span id="victory-score">0</span></p>
+            <button id="victory-restart-btn">🔄 再玩一次</button>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
